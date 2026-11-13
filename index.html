@@ -1,90 +1,56 @@
 <!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TradeMind AI – Marktanalyse lernen</title>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TradeMind AI – Markt-Dashboard</title>
 <style>
 :root{--bg:#0b1220;--panel:#121d30;--muted:#9fb0c8;--text:#edf4ff;--accent:#62d6b5;--line:#263650}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(140deg,#0b1220,#101d32);color:var(--text);font:16px system-ui,Arial,sans-serif}
-header,main{max-width:1050px;margin:auto;padding:22px}header{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-h1{margin:0;font-size:clamp(1.7rem,4vw,2.5rem)}h1 span{color:var(--accent)}p{color:var(--muted);line-height:1.55}
-button,select{background:#1c2b43;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 13px;font:inherit}
-button{cursor:pointer}button.primary{background:var(--accent);color:#06251e;border:0;font-weight:700}
-.hero,.card{background:rgba(18,29,48,.94);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.metric{font-size:1.8rem;font-weight:750}.tag{display:inline-block;padding:4px 9px;border-radius:99px;background:#263b50;color:#bcefe1;font-size:.8rem}
-table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
-.small{font-size:.88rem;color:var(--muted)}.positive{color:#74e0b9}.negative{color:#ff9b9b}
-input{width:110px;padding:10px;border-radius:9px;border:1px solid var(--line);background:#0b1627;color:white}
-footer{max-width:1050px;margin:auto;padding:0 22px 30px;color:var(--muted);font-size:.85rem}
-@media(max-width:600px){header{align-items:flex-start}table{font-size:.9rem}.hero,.card{padding:15px}}
-</style>
-</head>
-<body>
-<header>
-  <div><h1><span>TradeMind</span> AI</h1><div class="small" data-i18n="subtitle">Marktanalyse verstehen. Risiken erkennen. Sicher simulieren.</div></div>
-  <label><span class="small">Language / Sprache </span><select id="lang"><option value="de">Deutsch</option><option value="en">English</option></select></label>
-</header>
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(140deg,#0b1220,#101d32);color:var(--text);font:16px system-ui,Arial}
+header,main,footer{max-width:1050px;margin:auto;padding:18px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{margin:0;font-size:clamp(1.8rem,5vw,2.5rem)}h1 span{color:var(--accent)}p{color:var(--muted);line-height:1.55}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.metric{font-size:1.8rem;font-weight:750}.small{font-size:.88rem;color:var(--muted)}
+select,input,button{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#1c2b43;color:var(--text)}
+button{cursor:pointer}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.filters button{padding:8px 12px}
+button.active,.primary{background:var(--accent);color:#06251e;border-color:var(--accent);font-weight:700}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.toolbar input{flex:1;min-width:180px}
+.tag{display:inline-block;background:#263b50;color:#bcefe1;border-radius:99px;padding:5px 10px;font-size:.8rem}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted)}
+.positive{color:#74e0b9}.negative{color:#ff9b9b}.empty{text-align:center;padding:22px;color:var(--muted)}
+@media(max-width:620px){header,main,footer{padding:14px}.card{padding:15px}table{font-size:.83rem}th,td{padding:8px 4px}.hide-mobile{display:none}}
+</style></head><body>
+<header><div><h1><span>TradeMind</span> AI</h1><div class="small" data-de="Marktanalyse verstehen. Risiken erkennen. Sicher simulieren." data-en="Understand markets. Recognize risk. Simulate safely.">Marktanalyse verstehen. Risiken erkennen. Sicher simulieren.</div></div>
+<label class="small">Language / Sprache <select id="lang"><option value="de">Deutsch</option><option value="en">English</option></select></label></header>
 <main>
-<section class="hero">
-  <span class="tag" data-i18n="demo">DEMO-MODUS · KEINE ECHTEN MARKTDATEN</span>
-  <h2 data-i18n="welcome">Willkommen bei TradeMind AI</h2>
-  <p data-i18n="intro">Ein Lernprototyp, der beispielhafte Marktbewegungen zeigt und dir hilft, Analyse und Risikomanagement zu verstehen. Die Werte unten sind erfunden und keine Anlageempfehlungen.</p>
-</section>
+<section class="card"><span class="tag" data-de="DEMO · KEINE ECHTEN MARKTDATEN" data-en="DEMO · NO REAL MARKET DATA">DEMO · KEINE ECHTEN MARKTDATEN</span>
+<h2 data-de="Willkommen bei TradeMind AI" data-en="Welcome to TradeMind AI">Willkommen bei TradeMind AI</h2>
+<p data-de="Ein Lernprototyp mit erfundenen Beispielwerten. Keine Anlageempfehlungen." data-en="A learning prototype with fictional sample values. Not investment recommendations.">Ein Lernprototyp mit erfundenen Beispielwerten. Keine Anlageempfehlungen.</p></section>
 <section class="grid">
-  <div class="card"><div class="small" data-i18n="balance">Virtuelles Guthaben</div><div class="metric" id="balance">CHF 10’000</div><div class="small" data-i18n="paper">Nur Paper-Trading</div></div>
-  <div class="card"><div class="small" data-i18n="assets">Beobachtete Märkte</div><div class="metric">12</div><div class="small">Crypto · Stocks · Forex · Commodities · Indices</div></div>
-  <div class="card"><div class="small" data-i18n="status">Analyse-Status</div><div class="metric" data-i18n="sample">Beispieldaten</div><div class="small" data-i18n="notlive">Nicht live, keine KI-Prognose</div></div>
-</section>
-<section class="card">
-  <h2 data-i18n="marketTitle">Marktübersicht</h2>
-  <p data-i18n="marketDesc">Fiktive Beispielwerte zur Demonstration der Oberfläche.</p>
-  <table><thead><tr><th data-i18n="market">Markt</th><th data-i18n="price">Beispielkurs</th><th data-i18n="change">Demo-Veränderung</th><th data-i18n="signal">Lernhinweis</th></tr></thead>
-  <tbody id="markets"></tbody></table>
-</section>
-<section class="grid">
-  <div class="card">
-    <h2 data-i18n="simTitle">Portfolio simulieren</h2>
-    <p data-i18n="simDesc">Teste eine hypothetische Position mit virtuellem Guthaben. Es wird kein echtes Geld eingesetzt.</p>
-    <label><span data-i18n="amount">Virtueller Einsatz (CHF)</span><br><input id="amount" type="number" min="1" max="10000" value="100"></label>
-    <button class="primary" id="simulate" data-i18n="simulate">Simulation starten</button>
-    <button id="reset" data-i18n="reset">Zurücksetzen</button>
-    <p id="result" aria-live="polite" class="small"></p>
-  </div>
-  <div class="card">
-    <h2 data-i18n="learnTitle">Was bedeutet das?</h2>
-    <p data-i18n="learnText">Ein positives Signal ist keine Garantie. Kurse können stark schwanken; vereinfachte Kennzahlen lassen wichtige Informationen aus. Nutze diese Seite nur zum Lernen.</p>
-  </div>
-</section>
-</main>
-<footer data-i18n="disclaimer">Hinweis: Dies ist ein nicht-finanzieller Lernprototyp mit erfundenen Daten. Keine Anlageberatung, keine Kauf- oder Verkaufsempfehlung und keine Verbindung zu Brokern. Finanzanlagen können zu Verlusten führen.</footer>
+<div class="card"><div class="small" data-de="Virtuelles Guthaben" data-en="Virtual balance">Virtuelles Guthaben</div><div class="metric">CHF 10’000</div><div class="small">Paper-Trading</div></div>
+<div class="card"><div class="small" data-de="Marktbereiche" data-en="Market categories">Marktbereiche</div><div class="metric">5</div><div class="small">Crypto · Stocks · Forex · Commodities · Indices</div></div>
+<div class="card"><div class="small" data-de="Analyse-Status" data-en="Analysis status">Analyse-Status</div><div class="metric" data-de="Beispieldaten" data-en="Sample data">Beispieldaten</div><div class="small" data-de="Nicht live, keine KI-Prognose" data-en="Not live, no AI forecast">Nicht live, keine KI-Prognose</div></div></section>
+<section class="card"><h2 data-de="Markt-Dashboard" data-en="Market dashboard">Markt-Dashboard</h2>
+<p data-de="Suche einen Markt oder filtere nach Kategorie." data-en="Search for a market or filter by category.">Suche einen Markt oder filtere nach Kategorie.</p>
+<div class="toolbar"><input id="search" type="search" placeholder="Markt suchen …"><select id="sort"><option value="default">Standard</option><option value="name">Name A–Z</option><option value="change">Demo-Veränderung</option></select></div>
+<div class="filters" id="filters"><button class="active" data-filter="all" data-de="Alle" data-en="All">Alle</button><button data-filter="Crypto">Krypto</button><button data-filter="Stocks" data-de="Aktien" data-en="Stocks">Aktien</button><button data-filter="Forex">Forex</button><button data-filter="Commodities" data-de="Rohstoffe" data-en="Commodities">Rohstoffe</button><button data-filter="Indices" data-de="Indizes" data-en="Indices">Indizes</button></div>
+<div class="small" id="count" aria-live="polite"></div><div style="overflow-x:auto"><table><thead><tr><th data-de="Markt" data-en="Market">Markt</th><th data-de="Kategorie" data-en="Category">Kategorie</th><th data-de="Demo-Kurs" data-en="Demo price">Demo-Kurs</th><th data-de="Demo-Änderung" data-en="Demo change">Demo-Änderung</th><th class="hide-mobile" data-de="Lernhinweis" data-en="Learning note">Lernhinweis</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+<section class="grid"><div class="card"><h2 data-de="Paper-Trading-Rechner" data-en="Paper-trading calculator">Paper-Trading-Rechner</h2><p data-de="Berechne einen hypothetischen Einsatz. Es wird kein echtes Geld bewegt." data-en="Calculate a hypothetical amount. No real money is moved.">Berechne einen hypothetischen Einsatz. Es wird kein echtes Geld bewegt.</p>
+<label class="small" for="amount" data-de="Virtueller Einsatz (CHF)" data-en="Virtual amount (CHF)">Virtueller Einsatz (CHF)</label><br><input id="amount" type="number" min="1" max="10000" value="100"> <button class="primary" id="calc" data-de="Berechnen" data-en="Calculate">Berechnen</button><p id="result" class="small" aria-live="polite"></p></div>
+<div class="card"><h2 data-de="Grenzen & Risiken" data-en="Limits & risks">Grenzen & Risiken</h2><p data-de="Alle Kurse sind erfunden. Märkte schwanken; vergangene Entwicklungen sagen die Zukunft nicht voraus. Diese Lernseite ist keine Finanzberatung und hat keine Broker-Verbindung." data-en="All prices are fictional. Markets fluctuate; past performance does not predict the future. This learning page is not financial advice and has no broker connection.">Alle Kurse sind erfunden. Märkte schwanken; vergangene Entwicklungen sagen die Zukunft nicht voraus. Diese Lernseite ist keine Finanzberatung und hat keine Broker-Verbindung.</p></div></section>
+</main><footer class="small" data-de="Demo-Prototyp · Keine echten Handelsaufträge · Keine garantierten Gewinne." data-en="Demo prototype · No real trade orders · No guaranteed profits.">Demo-Prototyp · Keine echten Handelsaufträge · Keine garantierten Gewinne.</footer>
 <script>
-const sample=[
- ["Bitcoin (Crypto)","CHF 62’400","+1.8%","Volatilität verstehen"],
- ["Ethereum (Crypto)","CHF 3’150","−0.6%","Schwankungen beobachten"],
- ["Apple (Aktie)","CHF 188","+0.9%","Unternehmensrisiken prüfen"],
- ["Nestlé (Aktie)","CHF 96","−0.2%","Langfristige Faktoren"],
- ["EUR/USD (Forex)","1.084","+0.1%","Wechselkursrisiko"],
- ["USD/JPY (Forex)","149.2","−0.4%","Zinsumfeld beachten"],
- ["Gold (Rohstoff)","CHF 1’980","+0.5%","Rohstoffzyklen"],
- ["Öl (Rohstoff)","CHF 72","−1.1%","Angebot und Nachfrage"],
- ["S&P 500 (Index)","5’120","+0.7%","Breite Marktbewegung"],
- ["SMI (Index)","11’400","+0.3%","Indexzusammensetzung"],
- ["Solana (Crypto)","CHF 142","+2.4%","Hohe Kursschwankung"],
- ["Microsoft (Aktie)","CHF 405","+0.4%","Bewertung hinterfragen"]
-];
-const translations={
-de:{subtitle:"Marktanalyse verstehen. Risiken erkennen. Sicher simulieren.",demo:"DEMO-MODUS · KEINE ECHTEN MARKTDATEN",welcome:"Willkommen bei TradeMind AI",intro:"Ein Lernprototyp, der beispielhafte Marktbewegungen zeigt und dir hilft, Analyse und Risikomanagement zu verstehen. Die Werte unten sind erfunden und keine Anlageempfehlungen.",balance:"Virtuelles Guthaben",paper:"Nur Paper-Trading",assets:"Beobachtete Märkte",status:"Analyse-Status",sample:"Beispieldaten",notlive:"Nicht live, keine KI-Prognose",marketTitle:"Marktübersicht",marketDesc:"Fiktive Beispielwerte zur Demonstration der Oberfläche.",market:"Markt",price:"Beispielkurs",change:"Demo-Veränderung",signal:"Lernhinweis",simTitle:"Portfolio simulieren",simDesc:"Teste eine hypothetische Position mit virtuellem Guthaben. Es wird kein echtes Geld eingesetzt.",amount:"Virtueller Einsatz (CHF)",simulate:"Simulation starten",reset:"Zurücksetzen",learnTitle:"Was bedeutet das?",learnText:"Ein positives Signal ist keine Garantie. Kurse können stark schwanken; vereinfachte Kennzahlen lassen wichtige Informationen aus. Nutze diese Seite nur zum Lernen.",disclaimer:"Hinweis: Dies ist ein nicht-finanzieller Lernprototyp mit erfundenen Daten. Keine Anlageberatung, keine Kauf- oder Verkaufsempfehlung und keine Verbindung zu Brokern. Finanzanlagen können zu Verlusten führen.",done:"Simulation abgeschlossen: Dein hypothetischer Einsatz von CHF {n} wurde nur rechnerisch erfasst. Es wurde kein Geld bewegt.",invalid:"Bitte gib einen Betrag zwischen CHF 1 und CHF 10’000 ein."},
-en:{subtitle:"Understand markets. Recognize risk. Simulate safely.",demo:"DEMO MODE · NO REAL MARKET DATA",welcome:"Welcome to TradeMind AI",intro:"A learning prototype showing sample market movements to help explain analysis and risk management. The values below are fictional and are not investment recommendations.",balance:"Virtual balance",paper:"Paper trading only",assets:"Markets covered",status:"Analysis status",sample:"Sample data",notlive:"Not live, no AI forecast",marketTitle:"Market overview",marketDesc:"Fictional sample values to demonstrate the interface.",market:"Market",price:"Sample price",change:"Demo change",signal:"Learning note",simTitle:"Simulate a portfolio",simDesc:"Test a hypothetical position using virtual funds. No real money is used.",amount:"Virtual amount (CHF)",simulate:"Run simulation",reset:"Reset",learnTitle:"What does this mean?",learnText:"A positive signal is not a guarantee. Prices can fluctuate significantly; simplified metrics omit important information. Use this page for learning only.",disclaimer:"Notice: This is a non-financial learning prototype with fictional data. Not investment advice, no buy or sell recommendation, and no broker connection. Financial investments can result in losses.",done:"Simulation complete: your hypothetical CHF {n} amount was recorded for calculation only. No money was moved.",invalid:"Please enter an amount between CHF 1 and CHF 10,000."}
-};
-let lang="de",balance=10000;
-function renderMarkets(){document.getElementById("markets").innerHTML=sample.map((r)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${r[2].startsWith("+")? "positive":"negative"}">${r[2]}</td><td>${r[3]}</td></tr>`).join("")}
-function setLang(){lang=document.getElementById("lang").value;document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;el.textContent=translations[lang][k]});}
-document.getElementById("lang").addEventListener("change",setLang);
-document.getElementById("simulate").addEventListener("click",()=>{const n=Number(document.getElementById("amount").value);document.getElementById("result").textContent=(n>=1&&n<=balance)?translations[lang].done.replace("{n}",n.toLocaleString(lang==="de"?"de-CH":"en-US")):translations[lang].invalid});
-document.getElementById("reset").addEventListener("click",()=>{document.getElementById("result").textContent="";document.getElementById("amount").value=100});
-renderMarkets();setLang();
-</script>
-</body>
-</html>
+const markets=[
+["Bitcoin","Crypto","CHF 62’400",1.8,"Volatilität verstehen"],["Ethereum","Crypto","CHF 3’150",-0.6,"Schwankungen beobachten"],["Solana","Crypto","CHF 142",2.4,"Hohe Kursschwankung"],
+["Apple","Stocks","CHF 188",0.9,"Unternehmensrisiken prüfen"],["Nestlé","Stocks","CHF 96",-0.2,"Langfristige Faktoren"],["Microsoft","Stocks","CHF 405",0.4,"Bewertung hinterfragen"],
+["EUR/USD","Forex","1.084",0.1,"Wechselkursrisiko"],["USD/JPY","Forex","149.2",-0.4,"Zinsumfeld beachten"],
+["Gold","Commodities","CHF 1’980",0.5,"Rohstoffzyklen"],["Öl","Commodities","CHF 72",-1.1,"Angebot und Nachfrage"],
+["S&P 500","Indices","5’120",0.7,"Breite Marktbewegung"],["SMI","Indices","11’400",0.3,"Indexzusammensetzung"]];
+let filter="all",lang="de";const $=id=>document.getElementById(id);
+function render(){let q=$("search").value.toLowerCase().trim(),a=markets.filter(x=>(filter==="all"||x[1]===filter)&&(x[0].toLowerCase().includes(q)||x[1].toLowerCase().includes(q)));
+if($("sort").value==="name")a.sort((x,y)=>x[0].localeCompare(y[0]));if($("sort").value==="change")a.sort((x,y)=>y[3]-x[3]);
+$("count").textContent=(lang==="de"?"Angezeigt: ":"Showing: ")+a.length+(lang==="de"?" Märkte":" markets");
+$("rows").innerHTML=a.length?a.map(x=>`<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td class="${x[3]>=0?"positive":"negative"}">${x[3]>0?"+":""}${x[3].toFixed(1)}%</td><td class="hide-mobile">${x[4]}</td></tr>`).join(""):`<tr><td colspan="5" class="empty">${lang==="de"?"Keine passenden Märkte gefunden.":"No matching markets found."}</td></tr>`}
+$("filters").addEventListener("click",e=>{let b=e.target.closest("button[data-filter]");if(!b)return;filter=b.dataset.filter;document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("active",x===b));render()});
+$("search").addEventListener("input",render);$("sort").addEventListener("change",render);
+$("lang").addEventListener("change",()=>{lang=$("lang").value;document.documentElement.lang=lang;document.querySelectorAll("[data-de]").forEach(el=>el.textContent=el.dataset[lang]);$("search").placeholder=lang==="de"?"Markt suchen …":"Search markets …";$("sort").options[0].text=lang==="de"?"Standard":"Default";$("sort").options[1].text="Name A–Z";$("sort").options[2].text=lang==="de"?"Demo-Veränderung":"Demo change";render()});
+$("calc").addEventListener("click",()=>{let n=Number($("amount").value);$("result").textContent=n>=1&&n<=10000?(lang==="de"?"Nur virtuell berechnet: CHF ":"Virtual calculation only: CHF ")+n.toLocaleString(lang==="de"?"de-CH":"en-US")+".":(lang==="de"?"Bitte CHF 1 bis CHF 10’000 eingeben.":"Enter CHF 1 to CHF 10,000.")});
+render();
+</script></body></html>
