@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TradeMind AI – Marktanalyse lernen</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--muted:#9fb0c8;--text:#edf4ff;--accent:#62d6b5;--line:#263650}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(140deg,#0b1220,#101d32);color:var(--text);font:16px system-ui,Arial,sans-serif}
+header,main{max-width:1050px;margin:auto;padding:22px}header{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+h1{margin:0;font-size:clamp(1.7rem,4vw,2.5rem)}h1 span{color:var(--accent)}p{color:var(--muted);line-height:1.55}
+button,select{background:#1c2b43;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 13px;font:inherit}
+button{cursor:pointer}button.primary{background:var(--accent);color:#06251e;border:0;font-weight:700}
+.hero,.card{background:rgba(18,29,48,.94);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.metric{font-size:1.8rem;font-weight:750}.tag{display:inline-block;padding:4px 9px;border-radius:99px;background:#263b50;color:#bcefe1;font-size:.8rem}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
+.small{font-size:.88rem;color:var(--muted)}.positive{color:#74e0b9}.negative{color:#ff9b9b}
+input{width:110px;padding:10px;border-radius:9px;border:1px solid var(--line);background:#0b1627;color:white}
+footer{max-width:1050px;margin:auto;padding:0 22px 30px;color:var(--muted);font-size:.85rem}
+@media(max-width:600px){header{align-items:flex-start}table{font-size:.9rem}.hero,.card{padding:15px}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1><span>TradeMind</span> AI</h1><div class="small" data-i18n="subtitle">Marktanalyse verstehen. Risiken erkennen. Sicher simulieren.</div></div>
+  <label><span class="small">Language / Sprache </span><select id="lang"><option value="de">Deutsch</option><option value="en">English</option></select></label>
+</header>
+<main>
+<section class="hero">
+  <span class="tag" data-i18n="demo">DEMO-MODUS · KEINE ECHTEN MARKTDATEN</span>
+  <h2 data-i18n="welcome">Willkommen bei TradeMind AI</h2>
+  <p data-i18n="intro">Ein Lernprototyp, der beispielhafte Marktbewegungen zeigt und dir hilft, Analyse und Risikomanagement zu verstehen. Die Werte unten sind erfunden und keine Anlageempfehlungen.</p>
+</section>
+<section class="grid">
+  <div class="card"><div class="small" data-i18n="balance">Virtuelles Guthaben</div><div class="metric" id="balance">CHF 10’000</div><div class="small" data-i18n="paper">Nur Paper-Trading</div></div>
+  <div class="card"><div class="small" data-i18n="assets">Beobachtete Märkte</div><div class="metric">12</div><div class="small">Crypto · Stocks · Forex · Commodities · Indices</div></div>
+  <div class="card"><div class="small" data-i18n="status">Analyse-Status</div><div class="metric" data-i18n="sample">Beispieldaten</div><div class="small" data-i18n="notlive">Nicht live, keine KI-Prognose</div></div>
+</section>
+<section class="card">
+  <h2 data-i18n="marketTitle">Marktübersicht</h2>
+  <p data-i18n="marketDesc">Fiktive Beispielwerte zur Demonstration der Oberfläche.</p>
+  <table><thead><tr><th data-i18n="market">Markt</th><th data-i18n="price">Beispielkurs</th><th data-i18n="change">Demo-Veränderung</th><th data-i18n="signal">Lernhinweis</th></tr></thead>
+  <tbody id="markets"></tbody></table>
+</section>
+<section class="grid">
+  <div class="card">
+    <h2 data-i18n="simTitle">Portfolio simulieren</h2>
+    <p data-i18n="simDesc">Teste eine hypothetische Position mit virtuellem Guthaben. Es wird kein echtes Geld eingesetzt.</p>
+    <label><span data-i18n="amount">Virtueller Einsatz (CHF)</span><br><input id="amount" type="number" min="1" max="10000" value="100"></label>
+    <button class="primary" id="simulate" data-i18n="simulate">Simulation starten</button>
+    <button id="reset" data-i18n="reset">Zurücksetzen</button>
+    <p id="result" aria-live="polite" class="small"></p>
+  </div>
+  <div class="card">
+    <h2 data-i18n="learnTitle">Was bedeutet das?</h2>
+    <p data-i18n="learnText">Ein positives Signal ist keine Garantie. Kurse können stark schwanken; vereinfachte Kennzahlen lassen wichtige Informationen aus. Nutze diese Seite nur zum Lernen.</p>
+  </div>
+</section>
+</main>
+<footer data-i18n="disclaimer">Hinweis: Dies ist ein nicht-finanzieller Lernprototyp mit erfundenen Daten. Keine Anlageberatung, keine Kauf- oder Verkaufsempfehlung und keine Verbindung zu Brokern. Finanzanlagen können zu Verlusten führen.</footer>
+<script>
+const sample=[
+ ["Bitcoin (Crypto)","CHF 62’400","+1.8%","Volatilität verstehen"],
+ ["Ethereum (Crypto)","CHF 3’150","−0.6%","Schwankungen beobachten"],
+ ["Apple (Aktie)","CHF 188","+0.9%","Unternehmensrisiken prüfen"],
+ ["Nestlé (Aktie)","CHF 96","−0.2%","Langfristige Faktoren"],
+ ["EUR/USD (Forex)","1.084","+0.1%","Wechselkursrisiko"],
+ ["USD/JPY (Forex)","149.2","−0.4%","Zinsumfeld beachten"],
+ ["Gold (Rohstoff)","CHF 1’980","+0.5%","Rohstoffzyklen"],
+ ["Öl (Rohstoff)","CHF 72","−1.1%","Angebot und Nachfrage"],
+ ["S&P 500 (Index)","5’120","+0.7%","Breite Marktbewegung"],
+ ["SMI (Index)","11’400","+0.3%","Indexzusammensetzung"],
+ ["Solana (Crypto)","CHF 142","+2.4%","Hohe Kursschwankung"],
+ ["Microsoft (Aktie)","CHF 405","+0.4%","Bewertung hinterfragen"]
+];
+const translations={
+de:{subtitle:"Marktanalyse verstehen. Risiken erkennen. Sicher simulieren.",demo:"DEMO-MODUS · KEINE ECHTEN MARKTDATEN",welcome:"Willkommen bei TradeMind AI",intro:"Ein Lernprototyp, der beispielhafte Marktbewegungen zeigt und dir hilft, Analyse und Risikomanagement zu verstehen. Die Werte unten sind erfunden und keine Anlageempfehlungen.",balance:"Virtuelles Guthaben",paper:"Nur Paper-Trading",assets:"Beobachtete Märkte",status:"Analyse-Status",sample:"Beispieldaten",notlive:"Nicht live, keine KI-Prognose",marketTitle:"Marktübersicht",marketDesc:"Fiktive Beispielwerte zur Demonstration der Oberfläche.",market:"Markt",price:"Beispielkurs",change:"Demo-Veränderung",signal:"Lernhinweis",simTitle:"Portfolio simulieren",simDesc:"Teste eine hypothetische Position mit virtuellem Guthaben. Es wird kein echtes Geld eingesetzt.",amount:"Virtueller Einsatz (CHF)",simulate:"Simulation starten",reset:"Zurücksetzen",learnTitle:"Was bedeutet das?",learnText:"Ein positives Signal ist keine Garantie. Kurse können stark schwanken; vereinfachte Kennzahlen lassen wichtige Informationen aus. Nutze diese Seite nur zum Lernen.",disclaimer:"Hinweis: Dies ist ein nicht-finanzieller Lernprototyp mit erfundenen Daten. Keine Anlageberatung, keine Kauf- oder Verkaufsempfehlung und keine Verbindung zu Brokern. Finanzanlagen können zu Verlusten führen.",done:"Simulation abgeschlossen: Dein hypothetischer Einsatz von CHF {n} wurde nur rechnerisch erfasst. Es wurde kein Geld bewegt.",invalid:"Bitte gib einen Betrag zwischen CHF 1 und CHF 10’000 ein."},
+en:{subtitle:"Understand markets. Recognize risk. Simulate safely.",demo:"DEMO MODE · NO REAL MARKET DATA",welcome:"Welcome to TradeMind AI",intro:"A learning prototype showing sample market movements to help explain analysis and risk management. The values below are fictional and are not investment recommendations.",balance:"Virtual balance",paper:"Paper trading only",assets:"Markets covered",status:"Analysis status",sample:"Sample data",notlive:"Not live, no AI forecast",marketTitle:"Market overview",marketDesc:"Fictional sample values to demonstrate the interface.",market:"Market",price:"Sample price",change:"Demo change",signal:"Learning note",simTitle:"Simulate a portfolio",simDesc:"Test a hypothetical position using virtual funds. No real money is used.",amount:"Virtual amount (CHF)",simulate:"Run simulation",reset:"Reset",learnTitle:"What does this mean?",learnText:"A positive signal is not a guarantee. Prices can fluctuate significantly; simplified metrics omit important information. Use this page for learning only.",disclaimer:"Notice: This is a non-financial learning prototype with fictional data. Not investment advice, no buy or sell recommendation, and no broker connection. Financial investments can result in losses.",done:"Simulation complete: your hypothetical CHF {n} amount was recorded for calculation only. No money was moved.",invalid:"Please enter an amount between CHF 1 and CHF 10,000."}
+};
+let lang="de",balance=10000;
+function renderMarkets(){document.getElementById("markets").innerHTML=sample.map((r)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${r[2].startsWith("+")? "positive":"negative"}">${r[2]}</td><td>${r[3]}</td></tr>`).join("")}
+function setLang(){lang=document.getElementById("lang").value;document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;el.textContent=translations[lang][k]});}
+document.getElementById("lang").addEventListener("change",setLang);
+document.getElementById("simulate").addEventListener("click",()=>{const n=Number(document.getElementById("amount").value);document.getElementById("result").textContent=(n>=1&&n<=balance)?translations[lang].done.replace("{n}",n.toLocaleString(lang==="de"?"de-CH":"en-US")):translations[lang].invalid});
+document.getElementById("reset").addEventListener("click",()=>{document.getElementById("result").textContent="";document.getElementById("amount").value=100});
+renderMarkets();setLang();
+</script>
+</body>
+</html>
